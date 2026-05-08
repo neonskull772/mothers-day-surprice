@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Surprise for Mama ❤️</title>
+    <link rel="stylesheet" href="/src/styles.css">
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-content">
+            <div class="loader-elements">
+                <span class="loader-emoji heart-walk">❤️</span>
+                <span class="loader-emoji teapot-float">☕</span>
+                <span class="loader-emoji wand-spin">🪄</span>
+                <span class="loader-emoji sparkle-pulse">✨</span>
+            </div>
+            <div id="loader-text">Baking extra love...</div>
+            <div class="loader-progress">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hearts-container"></div>
+    
+    <button class="back-btn" style="display: none;">← Back to Home</button>
+
+    <main class="container">
+        <!-- Home Screen -->
+        <section id="home-screen" class="screen active">
+            <div class="header">
+                <h1>Mama, Happy Mother's Day! 🌸</h1>
+                <p>Dil se, aap ke liye ek chota sa tohfa (gift).<br>Explore the cards below! ✨</p>
+            </div>
+            <div class="games-grid">
+                <div class="game-card" data-game="gift">
+                    <span class="emoji">🎁</span>
+                    <span class="title">Gift Box</span>
+                </div>
+                <div class="game-card" data-game="balloons">
+                    <span class="emoji">🎈</span>
+                    <span class="title">Pop Balloons</span>
+                </div>
+                <div class="game-card" data-game="letter">
+                    <span class="emoji">💌</span>
+                    <span class="title">Love Letter</span>
+                </div>
+                <div class="game-card" data-game="stars">
+                    <span class="emoji">🌟</span>
+                    <span class="title">Wish Stars</span>
+                </div>
+                <div class="game-card" data-game="quiz">
+                    <span class="emoji">🧩</span>
+                    <span class="title">Mom Quiz</span>
+                </div>
+                <div class="game-card" data-game="draw">
+                    <span class="emoji">🎨</span>
+                    <span class="title">Draw a Flower</span>
+                </div>
+                <div class="game-card" data-game="calculator">
+                    <span class="emoji">🔢</span>
+                    <span class="title">Love Meter</span>
+                </div>
+                <div class="game-card" data-game="hug">
+                    <span class="emoji">✉️</span>
+                    <span class="title">Virtual Hug</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Gift Box Screen -->
+        <section id="gift-screen" class="screen">
+            <div class="gift-container">
+                <div class="box">
+                    <div class="box-face box-top"></div>
+                    <div class="box-face box-bottom"></div>
+                    <div class="box-face box-front">
+                        <div class="ribbon-v"></div>
+                        <div class="ribbon-h"></div>
+                    </div>
+                    <div class="box-face box-back">
+                        <div class="ribbon-v"></div>
+                        <div class="ribbon-h"></div>
+                    </div>
+                    <div class="box-face box-left">
+                        <div class="ribbon-v"></div>
+                        <div class="ribbon-h"></div>
+                    </div>
+                    <div class="box-face box-right">
+                        <div class="ribbon-v"></div>
+                        <div class="ribbon-h"></div>
+                    </div>
+                </div>
+                <div class="gift-message" style="display: none;">
+                    <p id="gift-msg-text"></p>
+                    <button id="next-gift-btn" class="btn" onclick="showNextGiftMsg()">Next Message</button>
+                    <p style="margin-top: 10px; font-weight: bold;">— Rohan 💖</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Balloons Screen -->
+        <section id="balloons-screen" class="screen">
+            <h2 style="text-align: center;">Pop the Hearts! ❤️</h2>
+            <div style="text-align: center; margin-bottom: 20px;">
+                Score: <span id="balloon-score">0</span>
+                <button class="btn" onclick="startBalloons()">Start Game</button>
+            </div>
+            <div id="balloons-container"></div>
+        </section>
+
+        <!-- 4. Love Letter Screen -->
+        <section id="letter-screen" class="screen">
+            <div class="letter-paper">
+                <div class="wax-seal">💌</div>
+                <p>Pyari Mama Jaan,</p>
+                <p>Aap janti hain ke main aksar keh nahi paata, lekin aap mere liye poori duniya hain. Aap ke baghair zindagi ka koi maqsad nahi. Aap ki duaon ne hamesha mujhe har mushkil se bachaya hai.</p>
+                <p>Mom, words aren't enough to describe how much I love you. From the way you know exactly what I need without me saying a word, to the way you protect our home with your presence — everything about you is magical.</p>
+                <p>Main hamesha aap ka wahi chota Rohan rahoonga jo aap ki ungli pakar kar chalna seekha tha. Aap mere liye mera sukoon hain.</p>
+                <p>Umeed hai aap ko ye choti si koshish pasand aayi hogi. Allah aap ka saaya mujh par hamesha salamat rakhe. Ameen.</p>
+                <p style="text-align: right;">Aap ka ladla beta,<br><strong>Rohan</strong> 💖</p>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="shootConfetti()">Send Love & Confetti 🎊</button>
+            </div>
+        </section>
+
+        <!-- 5. Stars Screen -->
+        <section id="stars-screen" class="screen">
+            <h2 style="text-align: center; color: white;">Wish Upon a Star 🌟</h2>
+            <p style="text-align: center; color: #eee;">Click the twinkling stars to send wishes to Mom...</p>
+            <div id="night-sky" style="position: relative; height: 300px; background: #0b132b; border-radius: 20px; overflow: hidden; margin: 20px 0;"></div>
+            <p id="stars-final-msg" style="text-align: center; font-weight: bold; color: gold;"></p>
+        </section>
+
+        <!-- 6. Quiz Screen -->
+        <section id="quiz-screen" class="screen">
+            <h2 style="text-align: center; margin-bottom: 20px;">How Well Do You Know Mom? 🧩</h2>
+            <div class="quiz-container" id="quiz-q-container"></div>
+        </section>
+
+        <!-- 7. Draw Screen -->
+        <section id="draw-screen" class="screen">
+            <div class="canvas-container">
+                <h2>Draw something beautiful for Mom 🌸</h2>
+                <canvas id="draw-canvas"></canvas>
+                <div class="controls">
+                    <button class="btn" style="background: #ff8fb1" onclick="setBrushColor('#ff8fb1')">Pink</button>
+                    <button class="btn" style="background: #ff4d4d" onclick="setBrushColor('#ff4d4d')">Red</button>
+                    <button class="btn" style="background: #ffa500" onclick="setBrushColor('#ffa500')">Orange</button>
+                    <button class="btn" style="background: #ffeb3b; color: #333" onclick="setBrushColor('#ffeb3b')">Yellow</button>
+                    <button class="btn" style="background: #4caf50" onclick="setBrushColor('#4caf50')">Green</button>
+                    <button class="btn" style="background: #2196f3" onclick="setBrushColor('#2196f3')">Blue</button>
+                    <button class="btn" style="background: #9c27b0" onclick="setBrushColor('#9c27b0')">Purple</button>
+                    <button class="btn" style="background: #000000" onclick="setBrushColor('#000000')">Black</button>
+                    <div style="width: 100%; margin: 10px 0;">
+                        <span style="font-size: 0.9rem">Brush Size:</span>
+                        <input type="range" min="1" max="20" value="5" onchange="setBrushSize(this.value)" style="vertical-align: middle;">
+                    </div>
+                    <button class="btn" onclick="clearCanvas()">Clear</button>
+                    <button class="btn" onclick="downloadCanvas()">Download 📥</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Calculator Screen -->
+        <section id="calculator-screen" class="screen">
+            <h2 style="text-align: center;">Love Meter 🔢</h2>
+            <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: var(--card-shadow);">
+                <input type="text" id="name1" class="calc-input" placeholder="Your Name" value="Rohan">
+                <input type="text" id="name2" class="calc-input" placeholder="Mom's Name" value="Mama">
+                <div class="heart-meter"><div class="heart-fill"></div></div>
+                <button class="btn" onclick="calculateLove()">Calculate Love ❤️</button>
+                <p id="calc-result" style="text-align: center; font-weight: bold; margin-top: 10px;"></p>
+            </div>
+        </section>
+
+        <!-- 10. Hug Screen -->
+        <section id="hug-screen" class="screen">
+            <h2 style="text-align: center;">Send a Virtual Hug! 🤗</h2>
+            <div class="hug-stage" onclick="sendHug()">
+                <div class="arm arm-left">💪</div>
+                <div class="arm arm-right">💪</div>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem;">👩‍👦</div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <p id="hug-count-text">Hugs Sent: <span id="hug-count">0</span></p>
+                <p id="hug-msg" style="font-weight: bold; color: var(--deep-purple); height: 24px;"></p>
+                <button class="btn" onclick="sendHug()">Press for Hug! 🤗</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="/src/app.js"></script>
+  </body>
+</html>
+
