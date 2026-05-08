@@ -4,7 +4,8 @@ function init() {
     showScreen('home');
 
     // Back to Home listener
-    document.querySelector('.back-btn').addEventListener('click', () => showScreen('home'));
+    const backBtns = document.querySelectorAll('.back-btn');
+    backBtns.forEach(btn => btn.addEventListener('click', () => showScreen('home')));
 
     // Game selection listeners
     document.querySelectorAll('.game-card').forEach(card => {
@@ -13,6 +14,15 @@ function init() {
             showScreen(game);
         });
     });
+
+    // Attach listener for the specific confetti button in the letter screen
+    const confettiBtn = document.getElementById('letter-confetti-btn');
+    if (confettiBtn) {
+        confettiBtn.addEventListener('click', () => {
+            console.log("Confetti button clicked!");
+            shootConfetti(3);
+        });
+    }
 }
 
 if (document.readyState === 'loading') {
@@ -133,10 +143,26 @@ function initGiftGame() {
     };
 }
 
+// Expose functions to global scope for onclick handlers
+window.showNextGiftMsg = showNextGiftMsg;
+window.startBalloons = startBalloons;
+window.setBrushColor = setBrushColor;
+window.setBrushSize = setBrushSize;
+window.clearCanvas = clearCanvas;
+window.downloadCanvas = downloadCanvas;
+window.calculateLove = calculateLove;
+window.sendHug = sendHug;
+window.shootConfetti = shootConfetti;
+window.initGame = initGame;
+window.showScreen = showScreen;
+window.initQuizGame = initQuizGame;
+
 function showNextGiftMsg() {
     const msgText = document.getElementById('gift-msg-text');
-    msgText.innerHTML = giftMessages[currentGiftMsg];
-    currentGiftMsg = (currentGiftMsg + 1) % giftMessages.length;
+    if (msgText) {
+        msgText.innerHTML = giftMessages[currentGiftMsg];
+        currentGiftMsg = (currentGiftMsg + 1) % giftMessages.length;
+    }
 }
 
 // 2. Balloons Game
@@ -385,24 +411,35 @@ function sendHug() {
 }
 
 // 9. Confetti
-function shootConfetti() {
+function shootConfetti(bursts = 1) {
+    console.log(`Shooting ${bursts} confetti bursts...`);
     const emojis = ['❤️', '💖', '🌸', '✨', '💝', '💗', '🤗'];
-    for(let i=0; i<40; i++) {
-        const conf = document.createElement('div');
-        conf.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-        conf.style.position = 'fixed';
-        conf.style.left = Math.random() * 100 + 'vw';
-        conf.style.top = '-50px';
-        conf.style.fontSize = (Math.random() * 20 + 20) + 'px';
-        conf.style.zIndex = '2000';
-        conf.style.transition = `transform ${Math.random()*2 + 2}s cubic-bezier(.17,.67,.83,.67)`;
-        document.body.appendChild(conf);
-        
+    
+    for (let b = 0; b < bursts; b++) {
         setTimeout(() => {
-            conf.style.transform = `translateY(110vh) translateX(${Math.random()*200 - 100}px) rotate(${Math.random()*720}deg)`;
-            conf.style.opacity = '0';
-        }, 50);
-        
-        setTimeout(() => conf.remove(), 4000);
+            for(let i=0; i<40; i++) {
+                const conf = document.createElement('div');
+                conf.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+                conf.className = 'confetti-particle';
+                conf.style.position = 'fixed';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-50px';
+                conf.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                conf.style.zIndex = '9999'; 
+                conf.style.pointerEvents = 'none';
+                conf.style.transition = `transform ${Math.random()*2 + 2}s linear, opacity 2s linear`;
+                document.body.appendChild(conf);
+                
+                // Use requestAnimationFrame to ensure the initial position is rendered
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        conf.style.transform = `translateY(110vh) translateX(${Math.random()*200 - 100}px) rotate(${Math.random()*720}deg)`;
+                        conf.style.opacity = '0';
+                    });
+                });
+                
+                setTimeout(() => conf.remove(), 5000);
+            }
+        }, b * 500);
     }
 }

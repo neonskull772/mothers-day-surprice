@@ -4,7 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A Surprise for Mama ❤️</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      // Failsafe to hide loading screen even if JS fails
+      setTimeout(function() {
+        var loader = document.getElementById('loading-screen');
+        if (loader && !loader.classList.contains('hidden')) {
+          loader.classList.add('hidden');
+        }
+      }, 5000);
+    </script>
   </head>
   <body>
     <!-- Loading Screen -->
@@ -123,7 +132,7 @@
                 <p style="text-align: right;">Aap ka ladla beta,<br><strong>Rohan</strong> 💖</p>
             </div>
             <div style="text-align: center; margin-top: 20px;">
-                <button class="btn" onclick="shootConfetti()">Send Love & Confetti 🎊</button>
+                <button id="letter-confetti-btn" class="btn">Send Love & Confetti 🎊</button>
             </div>
         </section>
 
@@ -193,7 +202,7 @@
         </section>
     </main>
 
-    <script src="/app.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
 
