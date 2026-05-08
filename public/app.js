@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function init() {
     initHearts();
     handleLoading();
     showScreen('home');
@@ -13,7 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
             showScreen(game);
         });
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 
 function handleLoading() {
     const loadingScreen = document.getElementById('loading-screen');
